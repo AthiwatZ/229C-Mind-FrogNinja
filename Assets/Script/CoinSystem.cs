@@ -16,7 +16,6 @@ public class CoinSystem  : MonoBehaviour
 
     [Header("UI Settings")]
     public TextMeshProUGUI coinCounterText; // UI Text ที่แสดงจำนวนเหรียญ
-    public GameObject coinEffectPrefab; // เอฟเฟกต์เมื่อเก็บเหรียญ (Optional)
 
     void Awake()
     {
@@ -40,12 +39,6 @@ public class CoinSystem  : MonoBehaviour
     public void CollectCoin(GameObject coin)
     {
         collectedCoins++;
-
-        // เล่นเอฟเฟกต์ (ถ้ามี)
-        if (coinEffectPrefab != null)
-        {
-            Instantiate(coinEffectPrefab, coin.transform.position, Quaternion.identity);
-        }
 
         Destroy(coin); // ลบเหรียญ
         UpdateCoinUI();

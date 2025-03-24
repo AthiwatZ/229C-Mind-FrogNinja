@@ -8,6 +8,7 @@ TagManager:
   - TriggerMushroom2
   - TriggerMushroom3
   - Ground
+  - Audio
   layers:
   - Default
   - TransparentFX

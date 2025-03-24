@@ -2,22 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Die : MonoBehaviour
 {
     AudioManager audioManager;
-
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
-    void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("Player"))
-        {
-            CoinSystem.Instance.CollectCoin(gameObject);
-            audioManager.PlaySFX(audioManager.collectShuriken);
-        }
+        audioManager.PlaySFX(audioManager.death);
     }
-
 }
