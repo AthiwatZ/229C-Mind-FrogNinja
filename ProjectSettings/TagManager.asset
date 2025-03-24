@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TriggerMushroom1
+  - TriggerMushroom2
+  - TriggerMushroom3
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,9 @@ public class Pcontroller : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private bool isGrounded;
+    [Header("Jump Settings")]
+    public int maxJumps = 2; // จำนวนครั้งที่กระโดดได้ (2 = double jump)
+    private int jumpCount = 0;
 
     void Start()
     {
@@ -58,10 +61,28 @@ public class Pcontroller : MonoBehaviour
 
     void Jump()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundLayer);
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // กระโดดเมื่อกด Space และยังไม่เกินจำนวนครั้งที่กำหนด
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
+            // รีเซ็ตความเร็วแกน Y ก่อนกระโดด (ป้องกันแรงสะสม)
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            // เพิ่มแรงกระโดด
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+            // นับจำนวนครั้งที่กระโดด
+            jumpCount++;
+
+            // อัพเดท Animator
+            animator.SetBool("isJumping", true);
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            jumpCount = 0;
+            animator.SetBool("isJumping", false);
         }
     }
 
